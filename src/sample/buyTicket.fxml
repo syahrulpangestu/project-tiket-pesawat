@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="641.0" prefWidth="876.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ControllerBuy">
+   <children>
+      <AnchorPane prefHeight="106.0" prefWidth="894.0" style="-fx-background-color: #e056fd;" AnchorPane.leftAnchor="0.0">
+         <children>
+            <Label layoutX="34.0" layoutY="10.0" prefHeight="58.0" prefWidth="249.0" style="-fx-text-fill: #ecf0f1;" text="BUY TICKET">
+               <font>
+                  <Font name="Dubai Medium" size="41.0" />
+               </font>
+            </Label>
+            <Label layoutX="34.0" layoutY="62.0" prefHeight="43.0" prefWidth="250.0" style="-fx-text-fill: #ecf0f1;" text="Order Your Ticket Here">
+               <font>
+                  <Font name="Dubai Regular" size="21.0" />
+               </font>
+            </Label>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </AnchorPane>
+      <Button layoutX="379.0" layoutY="537.0" mnemonicParsing="false" onAction="#order" prefHeight="66.0" prefWidth="145.0" style="-fx-background-color: #6ab04c; -fx-font-size: 20;" text="Order Ticket">
+         <font>
+            <Font name="Bauhaus 93" size="51.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="50.0" fitWidth="60.0" layoutX="94.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Icon/download.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="listKotaAsal" layoutX="166.0" layoutY="185.0" onAction="#selectKotaAsal" prefHeight="39.0" prefWidth="207.0" promptText="Kota Asal" />
+      
+      <ImageView fitHeight="39.0" fitWidth="60.0" layoutX="497.0" layoutY="187.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Icon/landing.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="listKotaTujuan" layoutX="584.0" layoutY="188.0" onAction="#selectKotaTujuan" prefHeight="39.0" prefWidth="207.0" promptText="Kota Tujuan" />
+      <DatePicker fx:id="datepicker" layoutX="166.0" layoutY="294.0" onAction="#selectTanggalPergi" prefHeight="39.0" prefWidth="207.0" promptText="Tanggal Pergi " />
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="94.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Icon/calendar-512.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="59.0" fitWidth="55.0" layoutX="504.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Icon/images.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="listKelasPenerbangan" layoutX="584.0" layoutY="294.0" onAction="#selectKelasPenerbangan" prefHeight="39.0" prefWidth="207.0" promptText="Kelas Penerbangan" />
+      <ImageView fitHeight="39.0" fitWidth="69.0" layoutX="85.0" layoutY="404.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Icon/maskapai.png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="listMaskapai" layoutX="166.0" layoutY="402.0" onAction="#selectMaskapai" prefHeight="43.0" prefWidth="207.0" promptText="Pilih Maskapai" />
+      <Label fx:id="label" layoutX="410.0" layoutY="604.0" prefHeight="22.0" prefWidth="87.0" text="Ini konfirmasi" />
+   </children>
+</AnchorPane>
