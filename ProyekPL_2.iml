@@ -10,5 +10,15 @@
     <orderEntry type="library" name="fontawesomefx-8.2" level="project" />
     <orderEntry type="library" name="com.jfoenix:jfoenix:9.0.9" level="project" />
     <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://C:/JAVA/mysql-connector-java-8.0.25/mysql-connector-java-8.0.25.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="mysql-connector-java-8.0.25" level="project" />
   </component>
 </module>
