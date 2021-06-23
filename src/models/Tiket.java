@@ -8,13 +8,14 @@ public class Tiket {
     private String waktu;
     private String kelas;
 
-    public Tiket(int idTiket, int stok, String namaMaskapai, String tujuan, String waktu, String kelas){
+    public Tiket(int idTiket, String tujuan, String waktu, int stok, String kelas, String namaMaskapai) {
         this.idTiket = idTiket;
         this.namaMaskapai = namaMaskapai;
         this.stok = stok;
         this.tujuan = tujuan;
         this.waktu = waktu;
         this.kelas = kelas;
+
     }
 
     public int getIdTiket() {

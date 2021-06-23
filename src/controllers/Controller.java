@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import models.Maskapai;
+import models.Tiket;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -95,28 +96,25 @@ public class Controller implements Initializable {
     private GridPane pnShowTiket;
 
     @FXML
-    private TableColumn<?, ?> tableShowTiketId;
+    private TableView<Tiket> tableViewShowTiket;
 
     @FXML
-    private TableColumn<?, ?> tableShowTiketMaskapai;
+    private TableColumn<Tiket, Integer> tableShowTiketId;
 
     @FXML
-    private TableColumn<?, ?> tableShowTiketTujuan;
+    private TableColumn<Tiket, String> tableShowTiketMaskapai;
 
     @FXML
-    private TableColumn<?, ?> tableShowTiketWaktu;
+    private TableColumn<Tiket, String> tableShowTiketTujuan;
 
     @FXML
-    private TableColumn<?, ?> tableShowTiketJumlah;
+    private TableColumn<Tiket, String> tableShowTiketWaktu;
 
     @FXML
-    private TableColumn<?, ?> tableShowTiketKelas;
+    private TableColumn<Tiket, String> tableShowTiketKelas;
 
     @FXML
-    private TableColumn<?, ?> tableShowTiketStok;
-
-    @FXML
-    private TableColumn<?, ?> tableShowTiketAksi;
+    private TableColumn<Tiket, Integer> tableShowTiketStok;
 
     @FXML
     private TextField inputSearchShowTiket;
@@ -144,6 +142,12 @@ public class Controller implements Initializable {
 
     @FXML
     private Button createButtonTiket;
+
+    @FXML
+    private TextField inputIdTiket;
+
+    @FXML
+    private Button updateButtonTiket;
 
     @FXML
     private GridPane pnMaskapai;
@@ -193,14 +197,18 @@ public class Controller implements Initializable {
     void buttonCreateTiket(ActionEvent event) {
         if(event.getSource() == createButtonTiket){
             insertTiket();
+        }else if(event.getSource() == updateButtonTiket){
+            updateTiket();
+        }else if (event.getSource() == buttonSearchShowTiket){
+            deleteTiket();
         }
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showMaskapai();
         showOptionMaskapai();
+        showTiket();
     }
 
     private void showOptionMaskapai() {
@@ -290,11 +298,49 @@ public class Controller implements Initializable {
         showMaskapai();
     }
 
+    public ObservableList<Tiket> getTiketList(){
+        ObservableList<Tiket> tiketList = FXCollections.observableArrayList();
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection connection =connectionClass.getConnection();
+        String sql = "SELECT * FROM tiket";
+        Statement st;
+        ResultSet rs;
+        try {
+            st = connection.createStatement();
+            rs = st.executeQuery(sql);
+            Tiket tiket;
+            while (rs.next()){
+                tiket = new Tiket(rs.getInt("idTiket"), rs.getString("tujuan"), rs.getString("waktu"), rs.getInt("stok"),  rs.getString("kelas"), rs.getString("namaMaskapai"));
+                tiketList.add(tiket);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return tiketList;
+    }
+
+    public void showTiket(){
+        ObservableList<Tiket> list = getTiketList();
+        tableShowTiketId.setCellValueFactory(new PropertyValueFactory<Tiket, Integer>("idTiket"));
+        tableShowTiketMaskapai.setCellValueFactory(new PropertyValueFactory<Tiket, String>("namaMaskapai"));
+        tableShowTiketTujuan.setCellValueFactory(new PropertyValueFactory<Tiket, String>("tujuan"));
+        tableShowTiketWaktu.setCellValueFactory(new PropertyValueFactory<Tiket, String>("waktu"));
+        tableShowTiketStok.setCellValueFactory(new PropertyValueFactory<Tiket, Integer>("stok"));
+        tableShowTiketKelas.setCellValueFactory(new PropertyValueFactory<Tiket, String>("kelas"));
+        tableViewShowTiket.setItems(list);
+    }
+
     private void insertTiket() {
         String sql = "INSERT INTO tiket (namaMaskapai, tujuan, waktu, stok, kelas) VALUES('"+optionMaskapai.getValue()+"','"+inputTujuan.getText()+"','"+inputWaktu.getValue()+"',"+inputStok.getText()+",'"+inputKelas.getText()+"')";
         executeQuery(sql);
         showMaskapai();
         System.out.println("lalalal"+inputWaktu.toString());
+    }
+
+    private void updateTiket(){
+        String sql = "UPDATE tiket SET namaMaskapai = '"+optionMaskapai.getValue()+"', tujuan = '"+inputTujuan.getText()+"', waktu = '"+inputWaktu.getValue()+"', stok = "+inputStok.getText()+", kelas = '"+inputKelas.getText()+"' WHERE idTiket = "+inputIdTiket.getText()+"";
+        executeQuery(sql);
+        showTiket();
     }
 
     private void executeQuery(String sql) {
@@ -313,6 +359,12 @@ public class Controller implements Initializable {
         String sql = "DELETE FROM maskapai WHERE idMaskapai = "+inputUpdateMaskapai.getText()+"";
         executeQuery(sql);
         showMaskapai();
+    }
+
+    private void deleteTiket(){
+        String sql = "DELETE FROM tiket WHERE idtiket = "+inputSearchShowTiket.getText()+"";
+        executeQuery(sql);
+        showTiket();
     }
 
     public void hover(MouseEvent mouseEvent) {
